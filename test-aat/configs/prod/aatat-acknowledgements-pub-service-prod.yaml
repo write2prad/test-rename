@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    typeserv: test-aat
+  name: test-aat-svc
+  namespace: pea-icp-fra-prod
+spec:
+  ports:
+  - name: bwce-metrics
+    port: 9095
+    protocol: TCP
+    targetPort: 9095
+  selector:
+    typeserv: test-aat
+  type: ClusterIP

@@ -1,0 +1,370 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-aat
+  labels:
+    typeserv: test-aat
+spec:
+  selector:
+    matchLabels:
+      typeserv: test-aat
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        typeserv: test-aat
+    spec:
+      containers:
+      - name: test-aat
+        image: registry.tools.3stripes.net/pea-coreintegration/coreintegration/test-aat:alpine.AdidasOSOpenJre11.bwcebase2.7.2.v1_v1.0.0
+        imagePullPolicy: Always
+        volumeMounts:
+            - mountPath: /resources/addons/certs/
+              name: certs-share
+              readOnly: true
+        env:
+              - name: BW_PROFILE
+                value : K8s
+              - name: CUSTOM_LOGBACK
+                value : "true"
+              - name: BW_APP_MONITORING_CONFIG
+                value : '{"url":"http://tibcobwcemon-dev.cite-mon-dev.svc.cluster.local:80"}'
+              - name: BW_JMX_CONFIG
+                value : "9099"
+              - name: BW_ENGINE_THREADCOUNT
+                value : "8"
+              - name: BW_JAVA_OPTS
+                value : "-Xmx1024M -Xms256M -XX:NewSize=128m -XX:MaxNewSize=256m -Dbw.engine.opentelemetry.enable=true -Dbw.engine.opentelemetry.span.exporter=com.tibco.bw.opentelemetry.exporter.jaeger -Dbw.engine.opentelemetry.span.exporter.endpoint=http://jaeger-collector.tracing.svc.cluster.local:14250/api/traces"
+              - name: MEMORY_LIMIT
+                value : "1024M"
+              - name: BW_JAVA_GC_OPTS
+                value : "-XX:-UseGCOverheadLimit"
+              - name: BW_PROMETHEUS_ENABLE
+                value : "true"
+              - name: AuditErrorLogger
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: AuditErrorLogger
+              - name: AuditErrorLoglevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: AuditErrorLoglevel
+              - name: AuditLogger
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: AuditLogger
+              - name: AuditLogLevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: AuditLogLevel
+              - name: auditPayloadEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: auditPayloadEnabled
+              - name: BusinessObject
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: BusinessObject
+              - name: ComponentType
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ComponentType
+              - name: ConsoleAlertLoggingEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ConsoleAlertLoggingEnabled
+              - name: ConsoleLoggingEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ConsoleLoggingEnabled
+              - name: DeploymentENV
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: DeploymentENV
+              - name: enableRecoverySleep
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: enableRecoverySleep
+              - name: errorPayloadEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: errorPayloadEnabled
+              - name: ExceptionLookupDataFormat
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ExceptionLookupDataFormat
+              - name: ExceptionLookupFile
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ExceptionLookupFile
+              - name: FrameworkErrorLogger
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FrameworkErrorLogger
+              - name: FrameworkErrorLogLevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FrameworkErrorLogLevel
+              - name: FrameworkLogger
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FrameworkLogger
+              - name: FrameworkLogLevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FrameworkLogLevel
+              - name: FWErrorHTTPClient
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWErrorHTTPClient
+              - name: FWErrorServiceHostName
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWErrorServiceHostName
+              - name: FWErrorServicePort
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWErrorServicePort
+              - name: FWErrorServiceResourcePath
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWErrorServiceResourcePath
+              - name: FWLogHTTPClient
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWLogHTTPClient
+              - name: FWLogServiceHostName
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWLogServiceHostName
+              - name: FWLogServicePort
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWLogServicePort
+              - name: FWLogServiceResourcePath
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: FWLogServiceResourcePath
+              - name: InterfaceID
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: InterfaceID
+              - name: InterfaceSourceProtocol
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: InterfaceSourceProtocol
+              - name: InterfaceTargetProtocol
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: InterfaceTargetProtocol
+              - name: JMSMaxSessions
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: JMSMaxSessions
+              - name: KafkaKeyPassword
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaKeyPassword
+              - name: KafkaKeyStoreLocation
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaKeyStoreLocation
+              - name: KafkaKeyStorePassword
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaKeyStorePassword
+              - name: KafkaMaxReqSize
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaMaxReqSize
+              - name: KafkaMsgKey
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaMsgKey
+              - name: KafkaRetry
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaRetry
+              - name: KafkaTrustStoreLocation
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaTrustStoreLocation
+              - name: KafkaTrustStorePassword
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KafkaTrustStorePassword
+              - name: KibanaENV
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KibanaENV
+              - name: KibanaErrorLoglevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KibanaErrorLoglevel
+              - name: KibanaLoglevel
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KibanaLoglevel
+              - name: KibanaVersion
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: KibanaVersion
+              - name: Leanixid
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: Leanixid
+              - name: ObjectEMSPassword
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSPassword
+              - name: ObjectEMSQueueConnectionFactory
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSQueueConnectionFactory
+              - name: ObjectEMSQueueTopicPub
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSQueueTopicPub
+              - name: ObjectEMSQueueTopicSub
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSQueueTopicSub
+              - name: ObjectEMSTopicConnectionFactory
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSTopicConnectionFactory
+              - name: ObjectEMSUrl
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSUrl
+              - name: ObjectEMSUsername
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectEMSUsername
+              - name: ObjectKafkaBootStrapServer
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectKafkaBootStrapServer
+              - name: ObjectKafkaConnectionTimeout
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectKafkaConnectionTimeout
+              - name: ObjectKafkaPassword
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectKafkaPassword
+              - name: ObjectKafkaTopic
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectKafkaTopic
+              - name: ObjectKafkaUsername
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ObjectKafkaUsername
+              - name: RecoverySleepTime
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: RecoverySleepTime
+              - name: RepoName
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: RepoName
+              - name: ScenarioID
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: ScenarioID
+              - name: SourceSystem
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: SourceSystem
+              - name: TargetSystem
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: TargetSystem
+              - name: WebserviceAlertLoggingEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: WebserviceAlertLoggingEnabled
+              - name: WebserviceLoggingEnabled
+                valueFrom:
+                  configMapKeyRef:
+                    name: test-aat-configmap-dev
+                    key: WebserviceLoggingEnabled
+        resources:
+             requests:
+                 memory: "1024Mi"
+                 cpu: "500m"
+             limits:
+                 memory: "1536Mi"
+                 cpu: "1"
+      imagePullSecrets:
+        - name: registry-tools-3stripes-net-cred
+      volumes:
+        - name: certs-share
+          projected:
+            sources:
+              - secret:
+                   name: test-aat-secret-dev

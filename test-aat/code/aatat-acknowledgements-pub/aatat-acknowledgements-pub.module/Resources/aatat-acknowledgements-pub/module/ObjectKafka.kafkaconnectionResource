@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jndi:namedResource xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jndi="http://xsd.tns.tibco.com/amf/models/sharedresource/jndi" xmlns:kafka="http://ns.tibco.com/bw/sharedresource/kafka" xmlns:keystore="http://xsd.tns.tibco.com/bw/sharedresource/trinity/models/cred/keystore" xmi:id="_IcZCUUMbEemoK8ly338gcg" name="test-aat.module.ObjectKafka" type="kafka:KafkaConnection">
+  <jndi:reference xmi:id="_ehhCkIB1EemFNcUesx3KUA" key="trustStoreServiceProvider" type="keystore:KeystoreConfiguration" value="test-aat.module.trust"/>
+  <jndi:reference xmi:id="_thqA8IB1EemFNcUesx3KUA" key="identityStoreServiceProvider" type="keystore:KeystoreConfiguration" value="test-aat.module.Keystore"/>
+  <jndi:configuration xsi:type="kafka:KafkaConnection" xmi:id="_IcZCUkMbEemoK8ly338gcg" reconnectBackoffMs="50" retryBackoffMs="100" requestTimeout="40000" metadataMaxAge="300000" SSL="true" ClientAuthentication="true">
+    <substitutionBindings xmi:id="_XLMRsEMeEemoK8ly338gcg" template="bootstrapServers" propName="//bwceLib///EnvConnections/ObjectKafka/ObjectKafkaBootStrapServer"/>
+    <substitutionBindings xmi:id="_Bnv7MIKUEemj37fwkTq1LA" template="KeyPassword" propName="/aatat/acknowledgements/KafkaCerts/KafkaKeyPassword"/>
+  </jndi:configuration>
+</jndi:namedResource>

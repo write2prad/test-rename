@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tns.tibco.com/bw/json/1658306090818" elementFormDefault="qualified" targetNamespace="http://tns.tibco.com/bw/json/1658306090818">
+      
+  
+  <complexType name="adidasESBMessageType">
+            
+    
+    <sequence>
+                  
+      
+      <element maxOccurs="1" minOccurs="0" name="metadata">
+                        
+        
+        <complexType>
+                              
+          
+          <sequence>
+                                    
+            
+            <element maxOccurs="1" minOccurs="0" name="eventVersion" type="string"/>
+                                    
+            
+            <element maxOccurs="1" minOccurs="0" name="eventSource" type="string"/>
+                                    
+            
+            <element maxOccurs="1" minOccurs="0" name="eventName" type="string"/>
+                                    
+            
+            <element maxOccurs="1" minOccurs="0" name="eventTime" type="string"/>
+                                    
+            
+            <element maxOccurs="1" minOccurs="0" name="eventID" type="string"/>
+                                  
+          
+          </sequence>
+                            
+        
+        </complexType>
+                      
+      
+      </element>
+                  
+      
+      <element maxOccurs="1" minOccurs="0" name="payload" type="string"/>
+                
+    
+    </sequence>
+          
+  
+  </complexType>
+      
+  
+  <element name="adidasESBMessage" type="tns:adidasESBMessageType"/>
+    
+
+</schema>

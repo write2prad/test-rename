@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jndi:namedResource xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://xsd.tns.tibco.com/bw/models/sharedresource/jms" xmlns:jndi="http://xsd.tns.tibco.com/amf/models/sharedresource/jndi" xmi:id="_h-JTYUMdEemoK8ly338gcg" name="test-aat.module.ObjectEMS" type="jms:JNDIConnection">
+  <jndi:configuration xsi:type="jms:JNDIConnectionConfiguration" xmi:id="_h-TEYEMdEemoK8ly338gcg">
+    <substitutionBindings xmi:id="_i-ZPcEMdEemoK8ly338gcg" template="providerUrl" propName="//bwceLib///EnvConnections/ObjectEMS/ObjectEMSUrl"/>
+    <userCredentials xmi:id="_w8bQkEMdEemoK8ly338gcg">
+      <substitutionBindings xmi:id="_xPpukEMdEemoK8ly338gcg" template="username" propName="//bwceLib///EnvConnections/ObjectEMS/ObjectEMSUsername"/>
+      <substitutionBindings xmi:id="_gF5EUGFFEemL-_PZufZxBg" template="password" propName="//bwceLib///EnvConnections/ObjectEMS/ObjectEMSPassword"/>
+    </userCredentials>
+  </jndi:configuration>
+</jndi:namedResource>

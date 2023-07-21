@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    typeserv: test-aat
+  name: test-aat-svcmon
+  namespace: inext-stg
+spec:
+  selector:
+    matchLabels:
+      typeserv: test-aat
+  endpoints:
+  - port: bwce-metrics
+    path: "/metrics"
+    scheme: http
+    interval: 15s
